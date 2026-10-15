@@ -1,8 +1,7 @@
 def initialize():
     print('Welcome to the Guest Manager!')
     print('Type "help" for a list of commands.')
-
-
+    
 
 def boilerplate(cmd_args):
     cmd = cmd_args[0] if cmd_args else ''
@@ -15,9 +14,9 @@ def boilerplate(cmd_args):
     if cmd == 'edit':
         edit_entry()
     if cmd == 'del':
-        delete_entry()
+        delete_entry(cmd_args[1] if len(cmd_args) > 1 else None)
     if cmd == 'src':
-        search_entries()
+        search_entries(cmd_args[1] if len(cmd_args) > 1 else None)
     if cmd == 'rprt':
         report_chooser()
     if cmd == 'bckp':
