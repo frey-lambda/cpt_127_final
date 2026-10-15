@@ -1,7 +1,38 @@
-def initialize():
-    print('Welcome to the Guest Manager!')
-    print('Type "help" for a list of commands.')
-    
+import json, csv
+
+PERSON_TYPES = []
+MENU_CHOICES = []
+FEE = 0
+
+def print_help():
+    pass
+
+def list_entries():
+    pass
+
+def new_entry():
+    pass
+
+def edit_entry():
+    pass
+
+def delete_entry(entry_id):
+    pass
+
+def search_entries(query):
+    pass
+
+def report_chooser():
+    pass
+
+def backup_entries():
+    pass
+
+def expert_mode():
+    pass
+
+def print_config():
+    pass
 
 def boilerplate(cmd_args):
     cmd = cmd_args[0] if cmd_args else ''
@@ -34,3 +65,8 @@ def main():
             print('Goodbye.')
             break
         boilerplate(cmd.split())
+
+with open('config.json', 'r') as file:
+    python_list = json.load(file)
+
+print(python_list)

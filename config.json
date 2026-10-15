@@ -1,0 +1,12 @@
+{
+    "person_types": [
+        "member",
+        "guest"
+    ],
+    "name_choices": [
+        "chicken",
+        "beef",
+        "vegetarian"
+    ],
+    "fee": 25.00
+}
