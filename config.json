@@ -1,7 +1,11 @@
 {
     "person_types": [
         "member",
-        "guest"
+        "guest",
+        "volunteer",
+        "staff",
+        "sponsor",
+        "vip"
     ],
     "menu_choices": [
         "chicken",

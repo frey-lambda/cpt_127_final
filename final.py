@@ -15,7 +15,19 @@ def database_refresh():
         DATABASE = list(reader)
 
 def print_help():
-    pass
+    print("""
+    Welcome to the Help Menu. Here are the available commands:
+    help - Displays this help menu.
+    list - Lists all entries in the database.
+    new - Creates a new entry in the database.
+    edit [entry_id] - Edits an existing entry with the specified entry_id.
+    del [entry_id] - Deletes an entry with the specified entry_id.
+    src [query] - Searches for entries matching the query.
+    rprt - Chooses a report to generate.
+    bckp - Backs up the database.
+    xpert - Enters expert mode for advanced configuration.
+    cnfg - Displays the current configuration settings.
+    exit - Exits the program.""")
 
 def list_entries():
     pass
