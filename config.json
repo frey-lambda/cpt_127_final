@@ -3,10 +3,10 @@
         "member",
         "guest"
     ],
-    "name_choices": [
+    "menu_choices": [
         "chicken",
         "beef",
         "vegetarian"
     ],
-    "fee": 25.00
+    "fee": 25.0
 }
