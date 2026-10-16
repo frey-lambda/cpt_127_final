@@ -8,6 +8,12 @@ def config_refresh():
         MENU_CHOICES = python_list.get('menu_choices', [])
         FEE = python_list.get('fee', 0)
 
+def database_refresh():
+    global DATABASE
+    with open('database.csv', 'r') as file:
+        reader = csv.reader(file)
+        DATABASE = list(reader)
+
 def print_help():
     pass
 
