@@ -56,7 +56,7 @@ def remove_from_json(setting, index):
 def set_json_value(value):
     config_refresh()
     try:
-        fee_value = float(value)
+        fee_value = int(value)
     except ValueError:
         print("Invalid value for fee. Please enter a numeric value.")
         return
