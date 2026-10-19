@@ -22,7 +22,7 @@ def generate_data(entry_num):
         writer.writerow(["Name", "Category", "Food Choice", "Fee amount received", "Fee Paid?"])
         for i in range(1, entry_num + 1):
             fee_is_paid = random.choice([True, False])
-            to_write = [name_gen(), random.choice(PERSON_TYPES), random.choice(MENU_CHOICES), FEE if fee_is_paid else random.randint(1, int(FEE)), fee_is_paid]
+            to_write = [name_gen(), random.choice(PERSON_TYPES), random.choice(MENU_CHOICES), int(FEE) if fee_is_paid else random.randint(1, int(FEE)), fee_is_paid]
             writer.writerow(to_write)
 
 if __name__ == "__main__":
