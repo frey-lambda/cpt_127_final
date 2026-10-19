@@ -63,6 +63,12 @@ def database_refresh():
         reader = csv.reader(file)
         DATABASE = list(reader)
 
+def formatter(entries):
+    for entry in entries:
+        for cell in entry:
+            print(f'{cell:<25}', end='')
+        print()
+
 def print_help():
     print("""
     Welcome to the Help Menu. Here are the available commands:
@@ -84,10 +90,7 @@ def list_entries():
         print("No entries found in the database.")
         return
     print("Listing all entries:")
-    for entry in DATABASE:
-        for cell in entry:
-            print(f'{cell:<25}', end='')
-        print()
+    formatter(DATABASE)
 
 def new_entry():
     database_refresh()
@@ -194,8 +197,51 @@ def search_entries(name):
         return False
     return found_entry
 
-def report_chooser():
+def report_chooser(option=None):
     database_refresh()
+    if option is None:
+        print("Choose a report to generate:")
+        print("1. List all entries")
+        print("2. List all entries with fee paid")
+        print("3. List all entries with fee not paid")
+        print("4. List all entries with a specific person type")
+        print("5. List all entries with a specific food choice")
+
+        report_choice = input("Report choice: ")
+    else:
+        report_choice = option
+    reported = []
+    if report_choice == '1':
+        reported = DATABASE
+    elif report_choice == '2':
+        print("Entries with fee paid:")
+        for entry in DATABASE:
+            if entry[4].lower() == 'true':
+                reported.append(entry)
+    elif report_choice == '3':
+        print("Entries with fee not paid:")
+        for entry in DATABASE:
+            if entry[4].lower() == 'false':
+                reported.append(entry)
+    elif report_choice == '4':
+        person_type = input("Enter person type: ")
+        print(f"Entries with person type '{person_type}':")
+        for entry in DATABASE:
+            if entry[1].lower() == person_type.lower():
+                reported.append(entry)
+    elif report_choice == '5':
+        food_choice = input("Enter food choice: ")
+        print(f"Entries with food choice '{food_choice}':")
+        for entry in DATABASE:
+            if entry[2].lower() == food_choice.lower():
+                reported.append(entry)
+    formatter(reported)
+    backup_response =input("Make backup of this report? (y/N): ")
+    if backup_response.lower() == 'y':
+        with open(f'Reports/report_{report_choice}_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(reported)
+        print("Report backed up successfully.")
 
 def backup_entries():
     shutil.copy('bluff.csv', f'Backups/data_backup_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.csv')
@@ -219,7 +265,7 @@ def boilerplate(cmd_args):
     elif cmd == 'src':
         search_entries(cmd_args[1] if len(cmd_args) > 1 else None)
     elif cmd == 'rprt':
-        report_chooser()
+        report_chooser(cmd_args[1] if len(cmd_args) > 1 else None)
     elif cmd == 'bckp':
         backup_entries()
     elif cmd == 'xpert':
