@@ -5,12 +5,16 @@
         "volunteer",
         "staff",
         "sponsor",
-        "vip"
+        "vip",
+        "management",
+        "supporter"
     ],
     "menu_choices": [
         "chicken",
         "beef",
-        "vegetarian"
+        "vegetarian",
+        "none",
+        "gluten-free"
     ],
     "fee": 25
 }

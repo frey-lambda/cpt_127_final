@@ -1,4 +1,4 @@
-import csv, xpert, datetime, json, shutil, datetime
+import csv, xpert, datetime, json, shutil, datetime, bluff_data_gen
 
 MENU_CHOICES = xpert.MENU_CHOICES
 PERSON_TYPES = xpert.PERSON_TYPES
@@ -250,6 +250,65 @@ def restore_backup(id):
     shutil.copy(f'Backups/data_backup_{id}.csv', 'bluff.csv')
     database_refresh()
 
+def generate_statistics():
+    database_refresh()
+
+    DATABASE.pop(0)
+
+    all_chosen_menu_items = [entry[2] for entry in DATABASE]
+    all_chosen_person_types = [entry[1] for entry in DATABASE]
+
+    menu_item_counts = {}
+    person_type_counts = {}
+
+    for chosen_menu_item in all_chosen_menu_items:
+        if chosen_menu_item not in MENU_CHOICES:
+            print("It seems as though the config.json file is not set up properly. Please fix either database.csv or config.json\nPlease note that running the gen command will refresh the database with working files as long as config.json is still correctly formatted.")
+            break
+
+        if chosen_menu_item not in menu_item_counts:
+            menu_item_counts[chosen_menu_item] = 1
+        else:
+            menu_item_counts[chosen_menu_item] += 1
+    
+    for chosen_person_type in all_chosen_person_types:
+        if chosen_person_type not in PERSON_TYPES:
+            print("It seems as though the config.json file is not set up properly. Please fix either database.csv or config.json\nPlease note that running the gen command will refresh the database with working files as long as config.json is still correctly formatted.")
+            break
+
+        if chosen_person_type not in person_type_counts:
+            person_type_counts[chosen_person_type] = 1
+        else:
+            person_type_counts[chosen_person_type] += 1
+    
+    print("Menu Choices")
+    for menu_item, menu_item_count in menu_item_counts.items():
+        print(f"{menu_item:<25}: {menu_item_count:<25}")
+    mc_count = len(menu_item_counts)
+    print(f"There are {mc_count} different menu choices in the database")
+    print()
+    print("Person Types")
+    for person_type, person_type_count in person_type_counts.items():
+        print(f"{person_type:<25}: {person_type_count:<25}")
+    pt_count = len(person_type_counts)
+    print(f"There are {pt_count} different person types in the database")
+    print()
+    fee_paid_count = 0
+    for entry in DATABASE:
+        entry = entry[4]
+        if entry == "True":
+            fee_paid_count += 1
+    amount_procured_total = 0
+    for entry in DATABASE:
+        amount_procured_total += int(entry[3])
+    print(f"So far, {fee_paid_count} people have paid the full fee")
+    print(f"So far, ${amount_procured_total} has been procured")
+    print()
+    print(f"There are {len(DATABASE)} entries")
+    print()
+    print("Done!")
+
+
 def boilerplate(cmd_args):
     cmd = cmd_args[0] if cmd_args else ''
     if cmd == 'help':
@@ -274,6 +333,10 @@ def boilerplate(cmd_args):
         xpert.print_config()
     elif cmd == 'rstr':
         restore_backup(cmd_args[1] if len(cmd_args) > 1 else None)
+    elif cmd == 'gen':
+        bluff_data_gen.generate_data(int(cmd_args[1]) if len(cmd_args) > 1 and cmd_args[1].isdigit() else 1000)
+    elif cmd == 'stats':
+        generate_statistics()
     else:
         print("Invalid command. Type 'help' for a list of commands.")
 
