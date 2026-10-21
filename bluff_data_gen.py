@@ -17,7 +17,7 @@ def name_gen():
     return f"{names[first_name_index]} {names[last_name_index]}"
 
 def generate_data(entry_num):
-    with open('bluff.csv', 'w', newline='') as file:
+    with open('partyplanner.csv', 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(["Name", "Category", "Food Choice", "Fee amount received", "Fee Paid?"])
         for i in range(1, entry_num + 1):

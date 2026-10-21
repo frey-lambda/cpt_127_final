@@ -1,10 +1,44 @@
 import json
 
+def set_default_config():
+    with open('config.json', 'w') as file:
+        default_config = {
+            "person_types": [
+                "member",
+                "guest",
+                "volunteer",
+                "staff",
+                "sponsor",
+                "vip",
+                "management",
+                "supporter"
+            ],
+            "menu_choices": [
+                "chicken",
+                "beef",
+                "vegetarian",
+                "none",
+                "gluten-free"
+            ],
+            "fee": 25
+            }
+        json.dump(default_config, file, indent=4)
+    print("Configuration reset to default values.")
+    config_refresh()
 
 def config_refresh():
     global PERSON_TYPES, MENU_CHOICES, FEE
     with open('config.json', 'r') as file:
-        python_list = json.load(file)
+        try:
+            python_list = json.load(file)
+        except json.JSONDecodeError:
+            print("Error: Invalid JSON in config.json")
+            if input("Set to default values? (y/N): ").lower() == 'y':
+                set_default_config()
+                return
+            else:
+                print("Exiting due to invalid configuration.")
+                exit(1)
         PERSON_TYPES = python_list.get('person_types', [])
         MENU_CHOICES = python_list.get('menu_choices', [])
         FEE = python_list.get('fee', 0)
@@ -15,6 +49,9 @@ def append_to_json(setting, value):
     config_refresh()
     with open('config.json', 'r+') as file:
         data = json.load(file)
+        if value == 'list':
+            print("You cannot append 'list' to the configuration. Please provide a valid value.")
+            return
         if setting == '1':
             data['person_types'].append(value)
         elif setting == '2':
@@ -99,9 +136,14 @@ def expert_mode():
             remove_from_json(cmd_args[1], int(cmd_args[2]))
         if cmd == 'set':
             set_json_value(cmd_args[1])
+        if cmd == 'default':
+            set_default_config()
 
 def print_config():
     config_refresh()
     print(f"Current Configuration:\nPerson Types: {PERSON_TYPES}\nMenu Choices: {MENU_CHOICES}\nFee: {FEE}")
 
 config_refresh()
+
+if __name__ == "__main__":
+    expert_mode()
