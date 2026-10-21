@@ -5,8 +5,6 @@ PERSON_TYPES = xpert.PERSON_TYPES
 FEE = xpert.FEE
 DATABASE = []
 
-
-
 def gather_name():
         #take input for name
         input_name = input("Name: ")
