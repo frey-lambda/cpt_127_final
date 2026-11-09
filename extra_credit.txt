@@ -1,0 +1,22 @@
+There are a number of things I did that weren't directly required.
+1. Submitted at least a week before deadline
+2. Various guest types other than member and guest:
+    volunteer
+    staff
+    sponsor
+    vip
+    management
+    supporter
+3. Various food types other than chicken and beef:
+    vegetarian
+    none
+    vegan
+    gluten-free
+4. Data processing has exact counts of each menu and guest type. It has total amount procured as well as the total amount of people that have paid the fee.
+    Furthermore, it allows partial payment.
+---- ADDITIONAL FEATURES ----
+5. Backup and restore features
+6. Ability to generate bluff data
+7. Report function as well as statistic function
+    Report function allows for filtering, statistic function returns important data in human-readable format.
+8. Validity testing on startup. 
