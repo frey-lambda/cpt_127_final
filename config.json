@@ -14,7 +14,8 @@
         "beef",
         "vegetarian",
         "none",
-        "gluten-free"
+        "gluten-free",
+        "vegan"
     ],
     "fee": 25
 }
